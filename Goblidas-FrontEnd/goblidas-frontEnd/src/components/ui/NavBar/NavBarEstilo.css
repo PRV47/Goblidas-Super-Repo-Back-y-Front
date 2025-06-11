@@ -1,0 +1,145 @@
+/* Contenedor principal */
+.navBar {
+    position: relative;
+    background-color: #BBEAD3;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* centra la marca */
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* Botón hamburguesa siempre a la izquierda */
+.navBar__hamburguesa {
+    position: absolute;
+    left: 10px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #000;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+/* Marca centrada */
+.navBar__brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #000;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Menú oculto por defecto */
+.navBar__ul {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background: #BBEAD3;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 10000;
+    padding: 20px 0;
+    gap: 15px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Estado abierto */
+.navBar__ul.navBar__ul--abierto {
+    display: flex;
+}
+
+/* Items del menú */
+.navBar__li {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    padding: 8px 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* Logo dentro del menú */
+.navBar__ul__img {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c7c7c7;
+    border-radius: 50%;
+}
+
+.navBar__ul__img img {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Carrito y admin */
+.navBar__li a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Nueva regla para el logo */
+.navBar__li.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Responsive: ajusta tamaños */
+@media (max-width: 480px) {
+    .navBar {
+        height: 50px;
+    }
+
+    .navBar__brand {
+        font-size: 1.25rem;
+    }
+
+    .navBar__ul__img {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+    .navBar {
+        height: 60px;
+    }
+
+    .navBar__brand {
+        font-size: 1.5rem;
+    }
+
+    .navBar__ul__img {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navBar {
+        height: 70px;
+    }
+
+    .navBar__brand {
+        font-size: 1.75rem;
+    }
+
+    .navBar__ul__img {
+        width: 40px;
+        height: 40px;
+    }
+}

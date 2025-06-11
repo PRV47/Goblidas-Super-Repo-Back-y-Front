@@ -1,0 +1,18 @@
+package com.example.goblidas_backend.services;
+
+import com.example.goblidas_backend.entities.OrderDetail;
+import com.example.goblidas_backend.repositories.OrderDetailRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderDetailService extends BaseService<OrderDetail> {
+
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+
+    public OrderDetailService(JpaRepository<OrderDetail, Long> baseRepository){
+        super(baseRepository);
+    }
+}

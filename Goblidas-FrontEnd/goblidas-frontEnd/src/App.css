@@ -1,0 +1,63 @@
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos base para móviles */
+.parent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #CBECBE;
+}
+
+.NavBarApp {
+  order: 1;
+  background-color: #f8f9fa;
+}
+
+.Pantalla {
+  order: 2;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #CBECBE;
+  max-width: 100%;
+}
+
+.PieDePagina {
+  background-color: #f1f1f1;
+  text-align: center;
+  height: 10px;
+}
+
+/* Estilos para pantallas más grandes */
+@media (min-width: 768px) {
+  .parent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .NavBarApp {
+    flex-shrink: 0;
+  }
+
+  .Pantalla {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
