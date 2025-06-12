@@ -105,6 +105,23 @@
 
 }
 
+
+.ColorBtn-activo {
+    outline: 2.5px solid #007bff;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #007bff;
+    filter: brightness(1.1);
+    z-index: 1;
+}
+
+/* Botón de talle seleccionado */
+.TalleBtn-activo {
+    background-color: #007bff !important;
+    color: #fff !important;
+    font-weight: bold;
+    outline: 2px solid #007bff;
+    z-index: 1;
+}
+
 /* --- Breakpoints Responsivos --- */
 
 @media (min-width: 320px) {

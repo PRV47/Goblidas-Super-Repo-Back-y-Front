@@ -303,6 +303,7 @@ export const TablaProductos = () => {
       )}
 
       {mostrarTalle && (
+        <div className="tabla-prod-modal">
         <form className="tabla-prod-form" onSubmit={handleAgregarTalle}>
           <input
             type="text"
@@ -314,9 +315,11 @@ export const TablaProductos = () => {
           <button className="tabla-prod-btn" type="submit">Guardar talle</button>
           <button className="tabla-prod-btn" type="button" onClick={() => setMostrarTalle(false)}>Cancelar</button>
         </form>
+        </div>
       )}
 
       {mostrarCategoria && (
+        <div className="tabla-prod-modal">
         <form className="tabla-prod-form" onSubmit={handleAgregarCategoria}>
           <input
             type="text"
@@ -328,6 +331,7 @@ export const TablaProductos = () => {
           <button className="tabla-prod-btn" type="submit">Guardar categoría</button>
           <button className="tabla-prod-btn" type="button" onClick={() => setMostrarCategoria(false)}>Cancelar</button>
         </form>
+        </div>
       )}
 
       {mostrarModal && (

@@ -165,7 +165,7 @@ export const AgregarDetalle = ({
                 onChange={e => setNuevoDetalle({ ...nuevoDetalle, sellingPrice: e.target.value })}
                 required
             />
-            <select
+            {/* <select
                 name="state"
                 value={nuevoDetalle.state === undefined ? "true" : String(nuevoDetalle.state)}
                 onChange={e => setNuevoDetalle({ ...nuevoDetalle, state: e.target.value })}
@@ -173,7 +173,7 @@ export const AgregarDetalle = ({
             >
                 <option value="true">Activo</option>
                 <option value="false">Inactivo</option>
-            </select>
+            </select> */}
             <input
                 name="brand"
                 placeholder="Marca"
