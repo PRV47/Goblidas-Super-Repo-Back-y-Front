@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 import { object, string } from "yup";
 
 export const RegistrarSesionModal = ({ onClose }: { onClose: () => void }) => {
-    const { setUsuario } = useUsuarioStore();
+    const setUsuario = useUsuarioStore(state => state.setUsuario);
     const [name, setNombre] = useState('');
     const [documento, setDocumento] = useState('');
     const [email, setEmail] = useState('');

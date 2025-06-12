@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getUsers, createUser, deleteUser, createUserfromadmin } from '../../../service/userService';
+import { getUsers, createUser, deleteUser, createUserfromadmin, updateUser } from '../../../service/userService';
 import { getAdressByUser } from '../../../service/adressService';
 import { Usuario } from '../../../types/usuario';
 import Swal from 'sweetalert2';
@@ -56,7 +56,14 @@ export const TablaUsuarios = () => {
   const handleGuardarEdicion = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Aquí deberías tener un servicio para editar usuario, por ejemplo: await updateUser(editando.id, nuevoUsuario);
+      if (!editando) return;
+      
+      const usuarioActualizado = {
+        ...nuevoUsuario,
+        role: nuevoUsuario.role?.toUpperCase()
+      };
+      
+      await updateUser(editando.id, usuarioActualizado);
       setEditando(null);
       setMostrarForm(false);
       await cargarUsuarios();
@@ -131,8 +138,9 @@ export const TablaUsuarios = () => {
       </div>
 
       {mostrarForm && (
+        <div className="tabla-prod-modal">
         <form
-          className="tabla-usuarios-form"
+          className="tabla-prod-form"
           onSubmit={editando ? handleGuardarEdicion : handleSubmit}
         >
           <input
@@ -190,6 +198,7 @@ export const TablaUsuarios = () => {
             Cancelar
           </button>
         </form>
+        </div>
       )}
 
       {usuarioDirecciones && (

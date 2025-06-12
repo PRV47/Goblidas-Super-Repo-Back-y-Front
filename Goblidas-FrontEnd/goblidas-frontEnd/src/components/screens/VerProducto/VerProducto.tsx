@@ -29,43 +29,53 @@ export const VerProducto = () => {
 
     // Colores únicos
     const coloresUnicos = productoActivo
-        ? Array.from(new Set(productoActivo.details
-            .filter(detalle => detalle.active !== false)
-            .map((detalle) => detalle.colour)))
-        : [];
+    ? Array.from(new Set(productoActivo.details
+        .filter(detalle => detalle.active !== false && detalle.state === true)
+        .map((detalle) => detalle.colour)))
+    : [];
 
-    // Talles únicos según el color seleccionado
-    const tallesFiltrados = productoActivo && colorSeleccionado
-        ? Array.from(
-            new Set(
-                productoActivo.details
-                    .filter((detalle) => detalle.colour === colorSeleccionado && detalle.active !== false)
-                    .map((detalle) => detalle.sizeId.number)
-            )
+// Talles únicos según el color seleccionado
+const tallesFiltrados = productoActivo && colorSeleccionado
+    ? Array.from(
+        new Set(
+            productoActivo.details
+                .filter((detalle) =>
+                    detalle.colour === colorSeleccionado &&
+                    detalle.active !== false &&
+                    detalle.state === true
+                )
+                .map((detalle) => detalle.sizeId.number)
         )
-        : [];
+    )
+    : [];
 
-    // Actualizar detalleActivo cuando ambos estén seleccionados
-    React.useEffect(() => {
-        if (productoActivo && colorSeleccionado && talleSeleccionado) {
-            const detalle = productoActivo.details.find(
-                (d) => d.colour === colorSeleccionado && d.sizeId.number === talleSeleccionado && d.active !== false
-            );
-            setDetalleActivo(detalle ?? null);
-        }
-    }, [productoActivo, colorSeleccionado, talleSeleccionado, setDetalleActivo]);
+// Actualizar detalleActivo cuando ambos estén seleccionados
+React.useEffect(() => {
+    if (productoActivo && colorSeleccionado && talleSeleccionado) {
+        const detalle = productoActivo.details.find(
+            (d) =>
+                d.colour === colorSeleccionado &&
+                d.sizeId.number === talleSeleccionado &&
+                d.active !== false &&
+                d.state === true
+        );
+        setDetalleActivo(detalle ?? null);
+    }
+}, [productoActivo, colorSeleccionado, talleSeleccionado, setDetalleActivo]);
 
-    // Setear automáticamente el primer detalle disponible al abrir el producto
-    React.useEffect(() => {
-        if (productoActivo && productoActivo.details.length > 0) {
-            const primerDetalle = productoActivo.details.find(d => d.active !== false);
-            if (primerDetalle) {
-                setColorSeleccionado(primerDetalle.colour);
-                setTalleSeleccionado(primerDetalle.sizeId.number);
-                setDetalleActivo(primerDetalle);
-            }
+// Setear automáticamente el primer detalle disponible al abrir el producto
+React.useEffect(() => {
+    if (productoActivo && productoActivo.details.length > 0) {
+        const primerDetalle = productoActivo.details.find(
+            d => d.active !== false && d.state === true
+        );
+        if (primerDetalle) {
+            setColorSeleccionado(primerDetalle.colour);
+            setTalleSeleccionado(primerDetalle.sizeId.number);
+            setDetalleActivo(primerDetalle);
         }
-    }, [productoActivo, setDetalleActivo]);
+    }
+}, [productoActivo, setDetalleActivo]);
 
     // Buscar descuento cuando cambia el detalleActivo
     React.useEffect(() => {

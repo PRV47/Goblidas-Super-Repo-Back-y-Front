@@ -84,42 +84,34 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User entity){
         try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            User loggedInUser = (User) auth.getPrincipal();
-
             User entityFound = userService.findById(id);
 
-            if (!loggedInUser.getRole().equals(Role.ADMIN)
-                    && !entity.getRole().equals(entityFound.getRole())
-                    && entity.getName().equals(entityFound.getName())
-                    && entity.getEmail().equals(entityFound.getEmail())
-                    && entity.getDni().equals(entityFound.getDni())) {
-                //entity.setRole(entityFound.getRole()); // forzar a mantener el rol actual si no es admin
-                Map<String, String> body = new HashMap<>();
-                body.put("error", "No tiene permisos para cambiar el rol del usuario.");
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
-            }
-
-            if(entityFound == null){
+            if (entityFound == null){
                 return ResponseEntity.notFound().build();
             }
 
-            System.out.println(entityFound);
+            // Actualizar solo los campos necesarios
             entityFound.setName(entity.getName());
             entityFound.setEmail(entity.getEmail());
             entityFound.setDni(entity.getDni());
-            // ⚠️ Solo permitir modificar el rol si sos ADMIN
-            entityFound.setRole(entity.getRole());
-
+            
+            // Manejar el rol
+            if (entity.getRole() != null) {
+                try {
+                    Role newRole = Role.valueOf(entity.getRole().name().toUpperCase());
+                    entityFound.setRole(newRole);
+                } catch (IllegalArgumentException e) {
+                    Map<String, String> body = new HashMap<>();
+                    body.put("error", "Rol inválido");
+                    return ResponseEntity.badRequest().body(body);
+                }
+            }
 
             User entityUpdated = userService.update(id, entityFound);
-
-            if(entityUpdated == null){
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok(userService.update(id, entityUpdated));
+            return ResponseEntity.ok(entityUpdated);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }

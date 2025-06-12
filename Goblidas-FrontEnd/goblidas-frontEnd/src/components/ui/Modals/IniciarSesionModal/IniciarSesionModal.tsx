@@ -87,7 +87,6 @@ export const IniciarSesionModal = ({ onClose }: { onClose: () => void }) => {
                     {errors.password && <div className="error">{errors.password}</div>}
                 </div>
                 <button type="submit">Enviar</button>
-                <p>¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
             </form>
         </div>
     )

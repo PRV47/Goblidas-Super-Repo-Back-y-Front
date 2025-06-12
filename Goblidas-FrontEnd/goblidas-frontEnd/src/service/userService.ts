@@ -60,13 +60,18 @@ export const createUserfromadmin = async (user: any) => {
 export const updateUser = async (id: number, user: any) => {
     try {
         console.log('🟢 [updateUser] Usuario que se enviará al backend:', user);
-        const response = await api.put(`/user/${id}`, user);
+        const response = await api.put(`/user/${id}`, {
+            name: user.name,
+            email: user.email,
+            dni: user.dni,
+            role: user.role
+        });
         console.log('🟢 [updateUser] Respuesta recibida del backend:', response.data);
         return response.data;
     } catch (error: any) {
         if (error.response) {
             console.error('🔴 [updateUser] Error de respuesta del backend:', error.response.data);
-            throw new Error(error.response.data?.message || 'Error en la respuesta del servidor');
+            throw new Error(error.response.data?.error || 'Error en la respuesta del servidor');
         } else if (error.request) {
             console.error('🔴 [updateUser] No se recibió respuesta del backend:', error.request);
             throw new Error('No se recibió respuesta del servidor');
